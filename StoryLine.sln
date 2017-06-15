@@ -1,15 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.6
+VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoryLine", "StoryLine\StoryLine.csproj", "{93A1F034-B057-4DA5-A470-1F7BBB4C0DC1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoryLine.Tests", "StoryLine.Tests\StoryLine.Tests.csproj", "{FEE04028-6C0D-4FCB-BB08-48B93B2C5CF0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoryLine.Rest", "StoryLine.Rest\StoryLine.Rest.csproj", "{305BE500-44B3-4806-B255-B9CFAA3856C9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoryLine.Wiremock", "StoryLine.Wiremock\StoryLine.Wiremock.csproj", "{8BC3EF1C-5A94-4AD1-BF05-A2C37E0ED620}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,14 +21,6 @@ Global
 		{FEE04028-6C0D-4FCB-BB08-48B93B2C5CF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEE04028-6C0D-4FCB-BB08-48B93B2C5CF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEE04028-6C0D-4FCB-BB08-48B93B2C5CF0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{305BE500-44B3-4806-B255-B9CFAA3856C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{305BE500-44B3-4806-B255-B9CFAA3856C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{305BE500-44B3-4806-B255-B9CFAA3856C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{305BE500-44B3-4806-B255-B9CFAA3856C9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8BC3EF1C-5A94-4AD1-BF05-A2C37E0ED620}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8BC3EF1C-5A94-4AD1-BF05-A2C37E0ED620}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8BC3EF1C-5A94-4AD1-BF05-A2C37E0ED620}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8BC3EF1C-5A94-4AD1-BF05-A2C37E0ED620}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

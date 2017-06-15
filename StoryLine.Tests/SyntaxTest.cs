@@ -1,8 +1,4 @@
-﻿using StoryLine.Rest.Actions;
-using StoryLine.Rest.Expectations;
-using StoryLine.Wiremock.Actions;
-using StoryLine.Wiremock.Expectations;
-using Xunit;
+﻿using Xunit;
 
 namespace StoryLine.Tests
 {
@@ -16,43 +12,43 @@ namespace StoryLine.Tests
         [Fact]
         public void Test()
         {
-            var actor = new Actor();
-            var secondActor = new Actor();
+            //var actor = new Actor();
+            //var secondActor = new Actor();
 
-            Rest.Config.AddServiceEndpont("CRM", "http://localhost:32769/");
-            Wiremock.Config.SetBaseAddress("http://localhost:32769/");
+            //Rest.Config.AddServiceEndpont("CRM", "http://localhost:32769/");
+            //Wiremock.Config.SetBaseAddress("http://localhost:32769/");
 
-            Wiremock.Config.Client.ResetAll();
-            Scenario.New()
-                .Given()
-                    .HasPerformed<StubResponse>(x => x
-                        .Request()
-                            .Method("GET")
-                            .Url(p => p.EqualTo("/dragon"))
-                        .Response()
-                            .Header("Content-Type", "text/plain")
-                            .Body("Dragon123"))
-                    .HasPerformed<HttpRequest>(x => x
-                        .Service("CRM")
-                        .Method("GET")
-                        .Url("/dragon"))
+            //Wiremock.Config.Client.ResetAll();
+            //Scenario.New()
+            //    .Given()
+            //        .HasPerformed<StubResponse>(x => x
+            //            .Request()
+            //                .Method("GET")
+            //                .Url(p => p.EqualTo("/dragon"))
+            //            .Response()
+            //                .Header("Content-Type", "text/plain")
+            //                .Body("Dragon123"))
+            //        .HasPerformed<HttpRequest>(x => x
+            //            .Service("CRM")
+            //            .Method("GET")
+            //            .Url("/dragon"))
                 
-                .When()
-                    .Performs<HttpRequest>(x => x
-                        .Service("CRM")
-                        .Method("GET")
-                        .Url("/dragon"))
-                .Then()
-                    .Expects<StubRequest>(x => x
-                        .Request()
-                            .Url(p => p.Matching("/dragon"))
-                        .Received()
-                            .Twice())
-                    .Expects<HttpResponse>(x => x
-                        .Status(200)
-                        .TextBody()
-                            .EqualTo("Dragon123"))
-                .Run();
+            //    .When()
+            //        .Performs<HttpRequest>(x => x
+            //            .Service("CRM")
+            //            .Method("GET")
+            //            .Url("/dragon"))
+            //    .Then()
+            //        .Expects<StubRequest>(x => x
+            //            .Request()
+            //                .Url(p => p.Matching("/dragon"))
+            //            .Received()
+            //                .Twice())
+            //        .Expects<HttpResponse>(x => x
+            //            .Status(200)
+            //            .TextBody()
+            //                .EqualTo("Dragon123"))
+            //    .Run();
 
 
             //Scenario.New()
