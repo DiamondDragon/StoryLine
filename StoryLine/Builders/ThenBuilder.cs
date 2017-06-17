@@ -1,7 +1,7 @@
 ﻿using System;
 using StoryLine.Contracts;
 
-namespace StoryLine
+namespace StoryLine.Builders
 {
     public class ThenBuilder : BuilderBase
     {
