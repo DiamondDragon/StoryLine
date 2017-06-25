@@ -10,15 +10,12 @@ namespace StoryLine.Builders
         {
         }
 
-        public GivenBuilder HasPerformed<T>(Action<T> config)
+        public GivenBuilder HasPerformed<T>(Action<T> config = null)
             where T : IActionBuilder, new()
         {
-            if (config == null)
-                throw new ArgumentNullException(nameof(config));
-
             var builder = new T();
 
-            config(builder);
+            config?.Invoke(builder);
 
             Context.AddAction(builder.Build());
 

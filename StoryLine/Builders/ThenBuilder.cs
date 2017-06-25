@@ -10,15 +10,12 @@ namespace StoryLine.Builders
         {
         }
 
-        public ThenBuilder Expects<T>(Action<T> config)
+        public ThenBuilder Expects<T>(Action<T> config = null)
             where T : IExpectationBuilder, new()
         {
-            if (config == null)
-                throw new ArgumentNullException(nameof(config));
-
             var builder = new T();
 
-            config(builder);
+            config?.Invoke(builder);
 
             Context.AddExpectation(builder.Build());
 

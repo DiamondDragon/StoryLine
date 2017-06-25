@@ -10,19 +10,33 @@ namespace StoryLine.Builders
         {
         }
 
-        public IntentionBuilder Performs<T>(Action<T> config)
+        public WhenBuilder Performs<T>(Action<T> config = null)
             where T : IActionBuilder, new()
         {
-            if (config == null)
-                throw new ArgumentNullException(nameof(config));
-
             var builder = new T();
 
-            config(builder);
+            config?.Invoke(builder);
 
             Context.AddAction(builder.Build());
 
-            return new IntentionBuilder(Context);
+            return this;
+        }
+
+        public ThenBuilder Then()
+        {
+            return Then(Context.CurrentActor);
+        }
+
+        private ThenBuilder Then(IActor actor)
+        {
+            Context.CurrentActor = actor ?? throw new ArgumentNullException(nameof(actor));
+
+            return new ThenBuilder(Context);
+        }
+
+        public void Run()
+        {
+            Config.CreateScenarioRunner().Run(Context);
         }
     }
 }
