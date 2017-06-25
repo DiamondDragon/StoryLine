@@ -24,7 +24,7 @@ namespace StoryLine.Actions
             var artifact = actor.Artifacts.Get(_predicate);
 
             if (artifact == null)
-                throw new ExpectationException($"Expected artifact of type \"{nameof(TArtifact1)}\" was not found.");
+                throw new ExpectationException($"Expected artifact of type \"{typeof(TArtifact1)}\" was not found.");
 
             var builder = new TActionBuilder();
 

@@ -1,34 +1,72 @@
-﻿using StoryLine.Contracts;
+﻿using System;
+using StoryLine.Contracts;
 using Xunit;
 
 namespace StoryLine.Tests
 {
     public class User
     {
-        
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 
-    public class Action1 : IActionBuilder
+    public class Action1 : IAction
     {
-        public IAction Build()
+        public void Execute(IActor actor)
         {
-            return null;
+            actor.Artifacts.Add(new User
+            {
+                FirstName = "Dragon",
+                LastName = "Diamong"
+            });
         }
     }
 
-    public class Action2 : IActionBuilder
+    public class Builder1 : IActionBuilder
     {
         public IAction Build()
         {
-            return null;
+            return new Action1();
         }
     }
 
-    public class Expectation1 : IExpectationBuilder
+    public class Action2 : IAction
+    {
+        public void Execute(IActor actor)
+        {
+        }
+    }
+
+    public class Builder2 : IActionBuilder
+    {
+        private User _user;
+
+        public Builder2 SetUser(User user)
+        {
+            _user = user ?? throw new ArgumentNullException(nameof(user));
+
+            return this;
+        }
+
+        public IAction Build()
+        {
+            return new Action2();
+        }
+    }
+
+    public class Expectation1 : IExpectation
+    {
+        public void Validate(IActor actor)
+        {
+        }
+    }
+
+
+    public class ExpectationBuilder1 : IExpectationBuilder
     {
         public IExpectation Build()
         {
-            return null;
+            return new Expectation1();
         }
     }
 
@@ -39,13 +77,14 @@ namespace StoryLine.Tests
         {
             Scenario.New()
                 .Given()
-                    .HasPerformed<Action1>()
-                    .HasPerformed<Action2>(x => { })
+                    .HasPerformed<Builder1>()
+                    .HasPerformed<Builder2, User>((x, y) => 
+                        x.SetUser(y))
                 .When()
-                    .Performs<Action1>(x => { })
-                    .Performs<Action2>(x => { })
+                    .Performs<Builder1>(x => { })
+                    .Performs<Builder2>(x => { })
                 .Then()
-                    .Expects<Expectation1>(x => { })
+                    .Expects<ExpectationBuilder1>()
                 .Run();
 
         }

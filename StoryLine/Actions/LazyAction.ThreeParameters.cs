@@ -32,15 +32,15 @@ namespace StoryLine.Actions
 
             var artifact1 = actor.Artifacts.Get(_predicate1);
             if (artifact1 == null)
-                throw new ExpectationException($"Expected artifact of type \"{nameof(TArtifact1)}\" was not found.");
+                throw new ExpectationException($"Expected artifact of type \"{typeof(TArtifact1)}\" was not found.");
 
             var artifact2 = actor.Artifacts.Get(_predicate2);
             if (artifact2 == null)
-                throw new ExpectationException($"Expected artifact of type \"{nameof(TArtifact2)}\" was not found.");
+                throw new ExpectationException($"Expected artifact of type \"{typeof(TArtifact2)}\" was not found.");
 
             var artifact3 = actor.Artifacts.Get(_predicate3);
             if (artifact3 == null)
-                throw new ExpectationException($"Expected artifact of type \"{nameof(TArtifact3)}\" was not found.");
+                throw new ExpectationException($"Expected artifact of type \"{typeof(TArtifact3)}\" was not found.");
 
             var builder = new TActionBuilder();
 
