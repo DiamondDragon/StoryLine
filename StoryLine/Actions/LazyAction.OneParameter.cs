@@ -8,12 +8,14 @@ namespace StoryLine.Actions
         where TActionBuilder : IActionBuilder, new()
     {
         private readonly Action<TActionBuilder, TArtifact1> _configator;
-        private readonly Func<TArtifact1, bool> _predicate;
+        private readonly Func<TArtifact1, bool> _artifact1Filter;
 
-        public LazyAction(Action<TActionBuilder, TArtifact1> configator = null, Func<TArtifact1, bool> predicate = null)
+        public LazyAction(
+            Action<TActionBuilder, TArtifact1> configator = null, 
+            Func<TArtifact1, bool> artifact1Filter = null)
         {
             _configator = configator;
-            _predicate = predicate;
+            _artifact1Filter = artifact1Filter;
         }
 
         public void Execute(IActor actor)
@@ -21,7 +23,7 @@ namespace StoryLine.Actions
             if (actor == null)
                 throw new ArgumentNullException(nameof(actor));
 
-            var artifact = actor.Artifacts.Get(_predicate);
+            var artifact = actor.Artifacts.Get(_artifact1Filter);
 
             if (artifact == null)
                 throw new ExpectationException($"Expected artifact of type \"{typeof(TArtifact1)}\" was not found.");
