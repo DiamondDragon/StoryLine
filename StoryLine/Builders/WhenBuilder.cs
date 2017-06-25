@@ -1,4 +1,5 @@
 ﻿using System;
+using StoryLine.Actions;
 using StoryLine.Contracts;
 
 namespace StoryLine.Builders
@@ -10,19 +11,68 @@ namespace StoryLine.Builders
         {
         }
 
-        public IntentionBuilder Performs<T>(Action<T> config)
+        public WhenBuilder Performs<T>(Action<T> config = null)
             where T : IActionBuilder, new()
         {
-            if (config == null)
-                throw new ArgumentNullException(nameof(config));
-
             var builder = new T();
 
-            config(builder);
+            config?.Invoke(builder);
 
             Context.AddAction(builder.Build());
 
-            return new IntentionBuilder(Context);
+            return this;
+        }
+
+        public WhenBuilder Performs<TBuilder, TArtifact1>(
+            Action<TBuilder, TArtifact1> config = null,
+            Func<TArtifact1, bool> predicate1 = null)
+            where TBuilder : IActionBuilder, new()
+        {
+            Context.AddAction(new LazyAction<TBuilder, TArtifact1>(config, predicate1));
+
+            return this;
+        }
+
+        public WhenBuilder Performs<TBuilder, TArtifact1, TArtifact2>(
+            Action<TBuilder, TArtifact1, TArtifact2> config = null,
+            Func<TArtifact1, bool> predicate1 = null,
+            Func<TArtifact2, bool> predicate2 = null
+        )
+            where TBuilder : IActionBuilder, new()
+        {
+            Context.AddAction(new LazyAction<TBuilder, TArtifact1, TArtifact2>(config, predicate1, predicate2));
+
+            return this;
+        }
+
+        public WhenBuilder Performs<TBuilder, TArtifact1, TArtifact2, TArtifact3>(
+            Action<TBuilder, TArtifact1, TArtifact2, TArtifact3> config = null,
+            Func<TArtifact1, bool> predicate1 = null,
+            Func<TArtifact2, bool> predicate2 = null,
+            Func<TArtifact3, bool> predicate3 = null
+        )
+            where TBuilder : IActionBuilder, new()
+        {
+            Context.AddAction(new LazyAction<TBuilder, TArtifact1, TArtifact2, TArtifact3>(config, predicate1, predicate2, predicate3));
+
+            return this;
+        }
+
+        public ThenBuilder Then()
+        {
+            return Then(Context.CurrentActor);
+        }
+
+        private ThenBuilder Then(IActor actor)
+        {
+            Context.CurrentActor = actor ?? throw new ArgumentNullException(nameof(actor));
+
+            return new ThenBuilder(Context);
+        }
+
+        public void Run()
+        {
+            Config.CreateScenarioRunner().Run(Context);
         }
     }
 }
