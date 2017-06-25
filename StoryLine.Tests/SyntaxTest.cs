@@ -1,4 +1,5 @@
 ﻿using System;
+using FluentAssertions;
 using StoryLine.Contracts;
 using Xunit;
 
@@ -85,6 +86,8 @@ namespace StoryLine.Tests
                     .Performs<Builder2>(x => { })
                 .Then()
                     .Expects<ExpectationBuilder1>()
+                    .ExpectsArtifact<User>(x => x.LastName.Contains("Diamo"))
+                    .ExpectsArtifact<User>(x => x.FirstName.Should().Be("Dragon"))
                 .Run();
 
         }
