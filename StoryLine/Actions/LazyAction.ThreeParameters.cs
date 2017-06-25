@@ -4,7 +4,7 @@ using StoryLine.Exceptions;
 
 namespace StoryLine.Actions
 {
-    public sealed class DeferredAction<TActionBuilder, TArtifact1, TArtifact2, TArtifact3> : IAction
+    public sealed class LazyAction<TActionBuilder, TArtifact1, TArtifact2, TArtifact3> : IAction
         where TActionBuilder : IActionBuilder, new()
     {
         private readonly Action<TActionBuilder, TArtifact1, TArtifact2, TArtifact3> _configator;
@@ -12,7 +12,7 @@ namespace StoryLine.Actions
         private readonly Func<TArtifact2, bool> _predicate2;
         private readonly Func<TArtifact3, bool> _predicate3;
 
-        public DeferredAction(
+        public LazyAction(
             Action<TActionBuilder, TArtifact1, TArtifact2, TArtifact3> configator = null,
             Func<TArtifact1, bool> predicate1 = null, 
             Func<TArtifact2, bool> predicate2 = null,

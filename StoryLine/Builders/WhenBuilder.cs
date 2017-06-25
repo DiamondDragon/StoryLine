@@ -28,7 +28,7 @@ namespace StoryLine.Builders
             Func<TArtifact1, bool> predicate1 = null)
             where TBuilder : IActionBuilder, new()
         {
-            Context.AddAction(new DeferredAction<TBuilder, TArtifact1>(config, predicate1));
+            Context.AddAction(new LazyAction<TBuilder, TArtifact1>(config, predicate1));
 
             return this;
         }
@@ -40,7 +40,7 @@ namespace StoryLine.Builders
         )
             where TBuilder : IActionBuilder, new()
         {
-            Context.AddAction(new DeferredAction<TBuilder, TArtifact1, TArtifact2>(config, predicate1, predicate2));
+            Context.AddAction(new LazyAction<TBuilder, TArtifact1, TArtifact2>(config, predicate1, predicate2));
 
             return this;
         }
@@ -53,7 +53,7 @@ namespace StoryLine.Builders
         )
             where TBuilder : IActionBuilder, new()
         {
-            Context.AddAction(new DeferredAction<TBuilder, TArtifact1, TArtifact2, TArtifact3>(config, predicate1, predicate2, predicate3));
+            Context.AddAction(new LazyAction<TBuilder, TArtifact1, TArtifact2, TArtifact3>(config, predicate1, predicate2, predicate3));
 
             return this;
         }

@@ -4,13 +4,13 @@ using StoryLine.Exceptions;
 
 namespace StoryLine.Actions
 {
-    public sealed class DeferredAction<TActionBuilder, TArtifact1> : IAction
+    public sealed class LazyAction<TActionBuilder, TArtifact1> : IAction
         where TActionBuilder : IActionBuilder, new()
     {
         private readonly Action<TActionBuilder, TArtifact1> _configator;
         private readonly Func<TArtifact1, bool> _predicate;
 
-        public DeferredAction(Action<TActionBuilder, TArtifact1> configator = null, Func<TArtifact1, bool> predicate = null)
+        public LazyAction(Action<TActionBuilder, TArtifact1> configator = null, Func<TArtifact1, bool> predicate = null)
         {
             _configator = configator;
             _predicate = predicate;
