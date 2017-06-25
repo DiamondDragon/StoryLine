@@ -16,4 +16,8 @@
     <TreatSpecificWarningsAsErrors />
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Expectations\" />
+  </ItemGroup>
+
 </Project>
