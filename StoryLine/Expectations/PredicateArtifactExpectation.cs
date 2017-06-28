@@ -6,7 +6,7 @@ using StoryLine.Exceptions;
 
 namespace StoryLine.Expectations
 {
-    public sealed class PredicateArtifactExpectation<TArtifact> : ArtifactExpectationBase<TArtifact>
+    internal sealed class PredicateArtifactExpectation<TArtifact> : ArtifactExpectationBase<TArtifact>
     {
         private readonly Func<TArtifact, bool> _predicate;
 

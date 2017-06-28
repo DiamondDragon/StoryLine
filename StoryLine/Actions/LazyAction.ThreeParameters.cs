@@ -4,7 +4,7 @@ using StoryLine.Exceptions;
 
 namespace StoryLine.Actions
 {
-    public sealed class LazyAction<TActionBuilder, TArtifact1, TArtifact2, TArtifact3> : IAction
+    internal sealed class LazyAction<TActionBuilder, TArtifact1, TArtifact2, TArtifact3> : IAction
         where TActionBuilder : IActionBuilder, new()
     {
         private readonly Action<TActionBuilder, TArtifact1, TArtifact2, TArtifact3> _configator;
