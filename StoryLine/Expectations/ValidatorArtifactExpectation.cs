@@ -3,7 +3,7 @@ using StoryLine.Exceptions;
 
 namespace StoryLine.Expectations
 {
-    public sealed class ValidatorArtifactExpectation<TArtifact> : ArtifactExpectationBase<TArtifact>
+    internal sealed class ValidatorArtifactExpectation<TArtifact> : ArtifactExpectationBase<TArtifact>
     {
         private readonly Action<TArtifact> _validator;
 

@@ -4,7 +4,7 @@ using StoryLine.Exceptions;
 
 namespace StoryLine.Expectations
 {
-    public abstract class ArtifactExpectationBase<TArtifact> : IExpectation
+    internal abstract class ArtifactExpectationBase<TArtifact> : IExpectation
     {
         private readonly Func<TArtifact, bool> _artifactFilter;
 
