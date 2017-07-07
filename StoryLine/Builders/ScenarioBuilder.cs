@@ -15,7 +15,7 @@ namespace StoryLine.Builders
             return Given(Context.CurrentActor);
         }
 
-        private GivenBuilder Given(IActor actor)
+        public GivenBuilder Given(IActor actor)
         {
             Context.CurrentActor = actor ?? throw new ArgumentNullException(nameof(actor));
 
