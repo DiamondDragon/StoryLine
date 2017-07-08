@@ -23,6 +23,46 @@ namespace StoryLine.Builders
             return this;
         }
 
+        public ThenBuilder Expects<TBuilder, TArtifact1>(
+            Action<TBuilder, TArtifact1> config = null, 
+            Func<TArtifact1, bool> artifact1Filter = null
+            )
+            where TBuilder : IExpectationBuilder, new()
+        {
+            Context.AddExpectation(new LazyExpectation<TBuilder, TArtifact1>(config, artifact1Filter));
+
+            return this;
+        }
+
+        public ThenBuilder Expects<TBuilder, TArtifact1, TArtifact2>(
+            Action<TBuilder, TArtifact1, TArtifact2> config = null, 
+            Func<TArtifact1, bool> artifact1Filter = null,
+            Func<TArtifact2, bool> artifact2Filter = null
+            )
+            where TBuilder : IExpectationBuilder, new()
+        {
+            Context.AddExpectation(new LazyExpectation<TBuilder, TArtifact1, TArtifact2>(config, artifact1Filter, artifact2Filter));
+
+            return this;
+        }
+
+        public ThenBuilder Expects<TBuilder, TArtifact1, TArtifact2, TArtifact3>(
+            Action<TBuilder, TArtifact1, TArtifact2, TArtifact3> config = null,
+            Func<TArtifact1, bool> artifact1Filter = null,
+            Func<TArtifact2, bool> artifact2Filter = null,
+            Func<TArtifact3, bool> artifact3Filter = null
+        )
+            where TBuilder : IExpectationBuilder, new()
+        {
+            Context.AddExpectation(new LazyExpectation<TBuilder, TArtifact1, TArtifact2, TArtifact3>(
+                config, 
+                artifact1Filter, 
+                artifact2Filter, 
+                artifact3Filter));
+
+            return this;
+        }
+
         public ThenBuilder ExpectsArtifact<TArtifact>(Action<TArtifact> validator, Func<TArtifact, bool> filter = null)
         {
             if (validator == null)
