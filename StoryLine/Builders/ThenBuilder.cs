@@ -63,26 +63,6 @@ namespace StoryLine.Builders
             return this;
         }
 
-        public ThenBuilder ExpectsArtifact<TArtifact>(Action<TArtifact> validator, Func<TArtifact, bool> filter = null)
-        {
-            if (validator == null)
-                throw new ArgumentNullException(nameof(validator));
-
-            Context.AddExpectation(new ValidatorArtifactExpectation<TArtifact>(validator, filter));
-
-            return this;
-        }
-
-        public ThenBuilder ExpectsArtifact<TArtifact>(Func<TArtifact, bool> predicate, Func<TArtifact, bool> filter = null)
-        {
-            if (predicate == null)
-                throw new ArgumentNullException(nameof(predicate));
-
-            Context.AddExpectation(new PredicateArtifactExpectation<TArtifact>(predicate, filter));
-
-            return this;
-        }
-
         public ThenBuilder Then(IActor actor)
         {
             Context.CurrentActor = actor ?? throw new ArgumentNullException(nameof(actor));
