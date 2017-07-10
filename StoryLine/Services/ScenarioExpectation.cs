@@ -3,20 +3,20 @@ using StoryLine.Contracts;
 
 namespace StoryLine.Services
 {
-    public class ScenarioExpectation : IScenarioExpectation
+    public sealed class ScenarioExpectation : IScenarioExpectation
     {
-        private readonly IActor _actor;
-        private readonly IExpectation _expectation;
+        public IActor Actor { get; }
+        public IExpectation Expectation { get; }
 
         public ScenarioExpectation(IActor actor, IExpectation expectation)
         {
-            _actor = actor ?? throw new ArgumentNullException(nameof(actor));
-            _expectation = expectation ?? throw new ArgumentNullException(nameof(expectation));
+            Actor = actor ?? throw new ArgumentNullException(nameof(actor));
+            Expectation = expectation ?? throw new ArgumentNullException(nameof(expectation));
         }
 
         public void Validate()
         {
-            _expectation.Validate(_actor);
+            Expectation.Validate(Actor);
         }
     }
 }

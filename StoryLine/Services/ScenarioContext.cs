@@ -4,7 +4,7 @@ using StoryLine.Contracts;
 
 namespace StoryLine.Services
 {
-    public class ScenarioContext : IScenarioContext
+    public sealed class ScenarioContext : IScenarioContext
     {
         private readonly List<IScenarioAction> _actions = new List<IScenarioAction>();
         private readonly List<IScenarioExpectation> _expectations = new List<IScenarioExpectation>();

@@ -70,14 +70,14 @@ namespace StoryLine.Builders
             return this;
         }
 
-        public void Run(int attemptsCount = 1, int millisecondsTimeout = 1000)
+        public void Run(int attemptsCount = 1, int millisecondsTimeout = 1000, bool cleanActorsOnRetry = true)
         {
             if (attemptsCount <= 0)
                 throw new ArgumentOutOfRangeException(nameof(attemptsCount));
             if (millisecondsTimeout <= 0)
                 throw new ArgumentOutOfRangeException(nameof(millisecondsTimeout));
 
-            Config.CreateScenarioRunner().Run(Context, attemptsCount, millisecondsTimeout);
+            Config.CreateScenarioRunner().Run(Context, attemptsCount, millisecondsTimeout, cleanActorsOnRetry);
         }
     }
 }

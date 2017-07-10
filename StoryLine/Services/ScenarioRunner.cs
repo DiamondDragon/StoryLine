@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading;
 using StoryLine.Contracts;
 using StoryLine.Exceptions;
@@ -7,7 +8,7 @@ namespace StoryLine.Services
 {
     public class ScenarioRunner : IScenarioRunner
     {
-        public void Run(IScenarioContext context, int attemptsCount, int millisecondsTimeout)
+        public void Run(IScenarioContext context, int attemptsCount, int millisecondsTimeout, bool cleanActorsOnRetry)
         {
             if (context == null)
                 throw new ArgumentNullException(nameof(context));
@@ -18,6 +19,9 @@ namespace StoryLine.Services
 
             for (var i = 0; i < attemptsCount; i++)
             {
+                if (cleanActorsOnRetry && i > 0)
+                    CleanActors(context);
+
                 try
                 {
                     RunScenario(context);
@@ -27,6 +31,22 @@ namespace StoryLine.Services
                 {
                     Thread.Sleep(millisecondsTimeout);
                 }
+            }
+        }
+
+        private static void CleanActors(IScenarioContext context)
+        {
+            var actionActors =
+                from action in context.Actions
+                select action.Actor;
+
+            var expectationActors =
+                from expectation in context.Actions
+                select expectation.Actor;
+
+            foreach (var actor in actionActors.Concat(expectationActors).Distinct())
+            {
+                actor.Artifacts.Clear();
             }
         }
 
