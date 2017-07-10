@@ -2,6 +2,6 @@ namespace StoryLine.Contracts
 {
     public interface IScenarioRunner
     {
-        void Run(IScenarioContext context);
+        void Run(IScenarioContext context, int attemptsCount, int millisecondsTimeout);
     }
 }

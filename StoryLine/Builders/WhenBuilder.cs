@@ -70,9 +70,14 @@ namespace StoryLine.Builders
             return new ThenBuilder(Context);
         }
 
-        public void Run()
+        public void Run(int attemptsCount = 1, int millisecondsTimeout = 1000)
         {
-            Config.CreateScenarioRunner().Run(Context);
+            if (attemptsCount <= 0)
+                throw new ArgumentOutOfRangeException(nameof(attemptsCount));
+            if (millisecondsTimeout <= 0)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsTimeout));
+
+            Config.CreateScenarioRunner().Run(Context, attemptsCount, millisecondsTimeout);
         }
     }
 }
