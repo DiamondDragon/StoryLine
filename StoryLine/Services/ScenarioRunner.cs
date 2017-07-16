@@ -29,7 +29,10 @@ namespace StoryLine.Services
                 }
                 catch (ExpectationException)
                 {
-                    Thread.Sleep(millisecondsTimeout);
+                    if (i + 1 < attemptsCount)
+                        Thread.Sleep(millisecondsTimeout);
+                    else
+                        throw;
                 }
             }
         }
