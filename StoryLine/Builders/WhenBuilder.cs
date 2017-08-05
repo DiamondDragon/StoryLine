@@ -63,7 +63,7 @@ namespace StoryLine.Builders
             return Then(Context.CurrentActor);
         }
 
-        private ThenBuilder Then(IActor actor)
+        public ThenBuilder Then(IActor actor)
         {
             Context.CurrentActor = actor ?? throw new ArgumentNullException(nameof(actor));
 
