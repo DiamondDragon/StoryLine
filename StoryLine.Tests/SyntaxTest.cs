@@ -1,6 +1,7 @@
 ﻿using System;
 using FluentAssertions;
 using StoryLine.Contracts;
+using StoryLine.Exceptions;
 using Xunit;
 
 namespace StoryLine.Tests
@@ -59,6 +60,7 @@ namespace StoryLine.Tests
     {
         public void Validate(IActor actor)
         {
+         //   throw new ExpectationException();
         }
     }
 
@@ -83,7 +85,7 @@ namespace StoryLine.Tests
                         x.SetUser(y))
                 .When()
                     .Performs<Builder1>(x => { })
-                    .Performs<Builder2>(x => { })
+                    .Performs<Builder2>(x => { } )
                 .Then()
                     .Expects<ExpectationBuilder1>()
                 .Run();

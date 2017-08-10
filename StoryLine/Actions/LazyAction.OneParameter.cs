@@ -4,11 +4,12 @@ using StoryLine.Exceptions;
 
 namespace StoryLine.Actions
 {
-    internal sealed class LazyAction<TActionBuilder, TArtifact1> : IAction
+    internal sealed class LazyAction<TActionBuilder, TArtifact1> : IAction, IScenarioEventHandler
         where TActionBuilder : IActionBuilder, new()
     {
         private readonly Action<TActionBuilder, TArtifact1> _configator;
         private readonly Func<TArtifact1, bool> _artifact1Filter;
+        private IAction _action;
 
         public LazyAction(
             Action<TActionBuilder, TArtifact1> configator = null, 
@@ -32,7 +33,16 @@ namespace StoryLine.Actions
 
             _configator?.Invoke(builder, artifact);
 
-            builder.Build().Execute(actor);
+            _action = builder.Build();
+            _action.Execute(actor);
+        }
+
+        public void OnExecuted(ScenarioExecutedEventArgs args)
+        {
+            if (args == null)
+                throw new ArgumentNullException(nameof(args));
+
+            (_action as IScenarioEventHandler)?.OnExecuted(args);
         }
     }
 }

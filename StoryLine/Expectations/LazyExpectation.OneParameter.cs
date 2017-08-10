@@ -4,11 +4,12 @@ using StoryLine.Exceptions;
 
 namespace StoryLine.Expectations
 {
-    public class LazyExpectation<TExpectationBuilder, TArtifact1> : IExpectation
+    public class LazyExpectation<TExpectationBuilder, TArtifact1> : IExpectation, IScenarioEventHandler
         where TExpectationBuilder : IExpectationBuilder, new()
     {
         private readonly Action<TExpectationBuilder, TArtifact1> _configurator;
         private readonly Func<TArtifact1, bool> _artifact1Filter;
+        private IExpectation _expectation;
 
         public LazyExpectation(
             Action<TExpectationBuilder, TArtifact1> configurator = null,
@@ -32,7 +33,16 @@ namespace StoryLine.Expectations
 
             _configurator?.Invoke(builder, artifact);
 
-            builder.Build().Validate(actor);
+            _expectation = builder.Build();
+            _expectation.Validate(actor);
+        }
+
+        public void OnExecuted(ScenarioExecutedEventArgs args)
+        {
+            if (args == null)
+                throw new ArgumentNullException(nameof(args));
+
+            (_expectation as IScenarioEventHandler)?.OnExecuted(args);
         }
     }
 }

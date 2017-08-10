@@ -22,18 +22,47 @@ namespace StoryLine.Services
                 if (cleanActorsOnRetry && i > 0)
                     CleanActors(context);
 
+                Exception exception = null;
+
                 try
                 {
                     RunScenario(context);
                     break;
                 }
-                catch (ExpectationException)
+                catch (ExpectationException ex)
                 {
+                    exception = ex;
+
                     if (i + 1 < attemptsCount)
                         Thread.Sleep(millisecondsTimeout);
                     else
                         throw;
                 }
+                catch (Exception ex)
+                {
+                    exception = ex;
+
+                    throw;
+                }
+                finally
+                {
+                    ExecuteScenarioEventHandlers(context, exception);
+                }
+            }
+        }
+
+        private void ExecuteScenarioEventHandlers(IScenarioContext context, Exception exception)
+        {
+            var args = new ScenarioExecutedEventArgs(exception);
+
+            foreach (var action in context.Actions.OfType<IScenarioEventHandler>())
+            {
+                action.OnExecuted(args);
+            }
+
+            foreach (var expectation in context.Expectations.OfType<IScenarioEventHandler>())
+            {
+                expectation.OnExecuted(args);
             }
         }
 
