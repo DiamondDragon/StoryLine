@@ -1,5 +1,8 @@
-# StoryLine
+# IMPORTANT
 
+**IMPORTANT:** This is old version of repository. Latest version of project can be found at [https://github.com/GodelTech/GodelTech.StoryLine](https://github.com/GodelTech/GodelTech.StoryLine). Please consider using this repository and related NuGet packages.
+
+# StoryLine
 Welcome to **StoryLine** framework used to create integration tests!
 
 This [wiki](https://github.com/DiamondDragon/StoryLine/wiki) is the main source of documentation for developers working with (or contributing to) the **StorLine** project.
